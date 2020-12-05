@@ -8,15 +8,15 @@ pipeline {
       }
       stage("Run Docker image"){
         steps{
-          sh "docker run --name nginx -itd -p 8088:80 docker:latest"   
+          sh "docker run --name nginx -itd -p 8090:80 docker:latest"   
         }  
       }  
       stage("Pushing to docker hub"){
         steps{
-          withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'pass', usernameVariable: 'userId')]) {
+          withCredentials([usernamePassword(credentialsId: 'suma_dockerhub', passwordVariable: 'pass', usernameVariable: 'userId')]) {
             sh 'docker login -u ${userId} -p ${pass}'
-            sh "docker commit nginx revathismart/docker:latest"
-            sh "docker push revathismart/docker:latest"   
+            sh "docker commit nginx sumalatha123/docker:latest"
+            sh "docker push sumalatha123/docker:latest"   
           }
         }  
       }
